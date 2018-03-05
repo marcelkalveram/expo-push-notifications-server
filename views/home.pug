@@ -11,17 +11,16 @@ block content
           tr
             th.col Email
             th.col Name
-            th.col Token
             th.col Actions
         tbody
           - for (user of users) {
             tr
-              td 
+              td.email 
                 = user.email
-              td
+              td.name
                 = user.name
-              td
-                = user.token
-              td
-                a.btn.btn-default(href='#', role='button') Change status
+              td.action
+                a.btn.btn-default(href='#', class='js-send-notification', role='button') Send notification
           - }
+
+  include partials/modal
