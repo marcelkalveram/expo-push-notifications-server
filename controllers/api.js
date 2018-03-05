@@ -34,3 +34,12 @@ exports.getApi = (req, res) => {
     res.json(response);
   });
 };
+
+exports.getNotification = (req, res) => {
+  User.findOne({ email: req.params.email }, (err, user) => {
+    console.log(user);
+  });
+
+  res.json({ message: 'notification sent' });
+};
+
