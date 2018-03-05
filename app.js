@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
-var cors = require('cors');
+const cors = require('cors');
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -61,6 +61,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
 
 /**
  * Primary app routes.
@@ -71,6 +73,7 @@ app.get('/', homeController.index);
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
+app.get('/api/notification/:email', apiController.getNotification);
 
 /**
  * Error Handler.
