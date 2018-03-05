@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h2 user list
+  hr
+  .row
+    .col-sm-12
+
+      table.table
+        thead
+          tr
+            th.col Email
+            th.col Name
+            th.col Token
+            th.col Actions
+        tbody
+          - for (user of users) {
+            tr
+              td 
+                = user.email
+              td
+                = user.name
+              td
+                = user.token
+              td
+                a.btn.btn-default(href='#', role='button') Change status
+          - }
