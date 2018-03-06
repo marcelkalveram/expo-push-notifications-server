@@ -2,7 +2,7 @@ const User = require('../models/User');
 const Expo = require('expo-server-sdk');
 
 // Create a new Expo SDK client
-let expo = new Expo();
+const expo = new Expo();
 
 /**
  * GET /api
@@ -39,8 +39,8 @@ exports.getApi = (req, res) => {
   });
 };
 
-exports.postNotification = async (req, res) => {
-  User.findOne({ email: req.params.email }, (err, user) => {
+exports.postNotification = (req, res) => {
+  User.findOne({ email: req.params.email }, async (err, user) => {
     console.log(user.token);
     console.log(req.body.title);
     console.log(req.body.message);
@@ -56,8 +56,8 @@ exports.postNotification = async (req, res) => {
       body: req.body.message
     };
 
-    expo.sendPushNotificationAsync(message);
-    res.json({ message: 'notification sent' });
+    const receipt = await expo.sendPushNotificationAsync(message);
+    res.json({ message: receipt });
   });
 };
 
