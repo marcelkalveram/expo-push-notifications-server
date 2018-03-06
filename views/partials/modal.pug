@@ -10,11 +10,12 @@
         p Notification details
         form
             .form-group
-            label(for='title') Title
-            input#title.form-control(type='text', placeholder='Title of your push notification')
+              label(for='title') Title
+              input#title.form-control(type='text', placeholder='Title of your push notification')
             .form-group
-            label(for='message') Message
-            input#message.form-control(type='text', placeholder='Message of your push notification')
+              label(for='message') Message
+              input#message.form-control(type='text', placeholder='Message of your push notification')
+            input#email(type='hidden')
         .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Close
             button.btn.btn-primary.js-send-notification-submit(type='button') Send notification
