@@ -1,4 +1,8 @@
 const User = require('../models/User');
+const Expo = require('expo-server-sdk');
+
+// Create a new Expo SDK client
+let expo = new Expo();
 
 /**
  * GET /api
@@ -35,11 +39,25 @@ exports.getApi = (req, res) => {
   });
 };
 
-exports.getNotification = (req, res) => {
+exports.postNotification = async (req, res) => {
   User.findOne({ email: req.params.email }, (err, user) => {
-    console.log(user);
-  });
+    console.log(user.token);
+    console.log(req.body.title);
+    console.log(req.body.message);
 
-  res.json({ message: 'notification sent' });
+    if (!Expo.isExpoPushToken(user.token)) {
+      return console.error(`Push token ${user.token} is not a valid Expo push token`);
+    }
+
+    const message = {
+      to: user.token,
+      sound: 'default',
+      title: req.body.title,
+      body: req.body.message
+    };
+
+    expo.sendPushNotificationAsync(message);
+    res.json({ message: 'notification sent' });
+  });
 };
 

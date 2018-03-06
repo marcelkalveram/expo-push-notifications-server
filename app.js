@@ -73,7 +73,7 @@ app.get('/', homeController.index);
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
-app.get('/api/notification/:email', apiController.getNotification);
+app.post('/api/notification/:email', apiController.postNotification);
 
 /**
  * Error Handler.
