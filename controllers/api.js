@@ -5,26 +5,21 @@ const Expo = require('expo-server-sdk');
 const expo = new Expo();
 
 /**
- * GET /api
- * List of API examples.
+ * POST /user
+ * Store a user's details
  */
-exports.getApi = (req, res) => {
+exports.postUser = (req, res) => {
   const response = {
     status: 'failure',
     message: 'you didn\'t pass valid parameters'
   };
 
-  if (!req.query || !req.query.token || !req.query.email || !req.query.name) {
+  const { email, name, token } = req.body;
+  if (!email || !name || !token) {
     return res.json(response);
   }
 
-  const { email, name, token } = req.query;
-
-  const user = new User({
-    email,
-    name,
-    token
-  });
+  const user = new User({ email, name, token });
 
   user.save((err) => {
     if (err) {
@@ -39,12 +34,12 @@ exports.getApi = (req, res) => {
   });
 };
 
+/**
+ * POST /notificaion
+ * Send a push notification to a user
+ */
 exports.postNotification = (req, res) => {
   User.findOne({ email: req.params.email }, async (err, user) => {
-    console.log(user.token);
-    console.log(req.body.title);
-    console.log(req.body.message);
-
     if (!Expo.isExpoPushToken(user.token)) {
       return console.error(`Push token ${user.token} is not a valid Expo push token`);
     }
@@ -53,7 +48,7 @@ exports.postNotification = (req, res) => {
       to: user.token,
       sound: 'default',
       title: req.body.title,
-      body: req.body.message
+      body: req.body.message,
     };
 
     const receipt = await expo.sendPushNotificationAsync(message);
