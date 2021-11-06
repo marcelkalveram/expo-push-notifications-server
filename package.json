@@ -28,7 +28,7 @@
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "node-sass-middleware": "^0.11.0",
-    "pug": "^2.0.0-rc.3"
+    "pug": "^3.0.1"
   },
   "devDependencies": {
     "chai": "^4.1.1",
