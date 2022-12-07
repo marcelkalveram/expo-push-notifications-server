@@ -22,7 +22,7 @@
     "dotenv": "^4.0.0",
     "errorhandler": "^1.5.0",
     "expo-server-sdk": "^2.3.3",
-    "express": "^4.15.4",
+    "express": "^4.17.3",
     "express-status-monitor": "^1.0.0",
     "express-validator": "^3.2.1",
     "mongoose": "^5.7.5",
